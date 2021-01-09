@@ -1,0 +1,37 @@
+name: CD
+
+on:
+  # TODO no secrets yet, so no automation for now
+  # push:
+  #   branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Filter changed Lambda sources
+        uses: dorny/paths-filter@v2.2.1
+        id: filter
+        with:
+          filters: .github/filters.yml
+
+      - name: Package and deploy
+        uses: blombard/lambda-monorepo@master
+        with:
+          lambda-functions: '${{ toJson(steps.filter.outputs) }}'
+          zip-params: '*.js *.json src/ node_modules/'
+          alias-name: 'production'
+          layer-name: 'MyLayer'
