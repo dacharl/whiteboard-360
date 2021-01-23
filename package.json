@@ -46,6 +46,7 @@
     "web-vitals": "^0.2.4"
   },
   "devDependencies": {
-    "prettier": "^2.2.1"
+    "prettier": "^2.2.1",
+    "serverless": "^2.19.0"
   }
 }
