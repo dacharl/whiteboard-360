@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "test": "cd ui && npm test",
-    "lint": "cd ui && npm run lint"
+    "test": "cd ui && npm i && npm test",
+    "lint": "cd ui && npm i && npm run lint"
   },
   "engines": {
     "node": ">=10.14.2",
