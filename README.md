@@ -4,4 +4,4 @@ This is intended to be an inexpensive replacement for the existing whiteboard ap
 
 ### Basic Architecture
 
-![Whiteboard 360](/public/Whiteboard_360.png)
+![Whiteboard 360](/docs/Whiteboard_360.png)
