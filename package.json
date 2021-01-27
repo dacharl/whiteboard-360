@@ -1,6 +1,7 @@
 {
   "private": true,
   "scripts": {
+    "test:ui": "cd ui && yarn test",
     "lint:ui": "cd ui && yarn lint ."
   },
   "engines": {

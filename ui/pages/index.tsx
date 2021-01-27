@@ -3,7 +3,7 @@ import styles from '@styles/Home.module.css';
 import { NextPage } from 'next';
 import { SWRConfig } from 'swr';
 import LaunchDashboard from './launch-dashboard';
-import get from '@api/get';
+import get from '../api/get'; // TODO fix ts path for jest
 
 const IndexPage: NextPage = () => {
   return (

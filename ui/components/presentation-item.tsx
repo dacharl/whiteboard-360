@@ -10,7 +10,7 @@ interface Props {
 }
 
 const PresentationItem: NextPage<Props> = ({ item }) => {
-  const itemHeading = `${item.date} ${item.title} ${item.author ? '- ' + item.author : ''}`
+  const itemHeading = `${item.date} ${item.title} ${item.author ? '- ' + item.author : ''}`;
   return item ? (
     <>
       <p>{itemHeading}</p>

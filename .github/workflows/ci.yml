@@ -10,15 +10,19 @@ on:
 
 jobs:
   test:
-    name: Unit Test
+    name: Unit Test UI
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+
+      - name: Install dependencies
+        run: yarn install
 
       - name: Run tests
-        run: yarn test
+        run: yarn test:ui
 
   lint-ui:
     name: Lint UI
@@ -27,6 +31,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+
+      - name: Install dependencies
+        run: yarn install
 
       - name: Run eslint
         run: yarn lint:ui

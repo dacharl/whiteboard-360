@@ -40,7 +40,9 @@ jobs:
     name: Deploy UI
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
+        
       - uses: actions/setup-node@v2
       
       - name: Install dependencies
