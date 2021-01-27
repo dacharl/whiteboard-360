@@ -16,6 +16,12 @@
       ],
       "@models/*": [
         "./models/*"
+      ],
+      "@styles/*": [
+        "./styles/*"
+      ],
+      "@api/*": [
+        "./api/*"
       ]
     },
     "allowJs": true,

@@ -1,6 +1,6 @@
-import LaunchDto from 'models/LaunchDto';
+import LaunchDto from '@models/LaunchDto';
 import { NextPage } from 'next';
-import styles from '../styles/Home.module.css';
+import styles from '@styles/Home.module.css';
 
 interface Props {
   launch: LaunchDto;
@@ -15,7 +15,7 @@ const Launch: NextPage<Props> = ({ launch }) => {
       </p>
     </>
   ) : (
-    <p>Loading...</p>
+    <p>Internal Loading...</p>
   );
 };
 
