@@ -1,5 +1,5 @@
 {
-  "name": "create-item-function",
+  "name": "@whiteboard-360/create-item-function",
   "version": "1.0.0",
   "description": "A lambda that creates a new item in a post.",
   "main": "index.js",

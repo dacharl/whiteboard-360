@@ -18,15 +18,15 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Run tests
-        run: npm test
+        run: yarn test
 
-  lint:
-    name: Lint Code
+  lint-ui:
+    name: Lint UI
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Run linter
-        run: npm run lint
+      - name: Run eslint
+        run: yarn lint:ui

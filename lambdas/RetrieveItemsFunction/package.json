@@ -1,5 +1,5 @@
 {
-  "name": "retrieve-items-function",
+  "name": "@whiteboard-360/retrieve-items-function",
   "version": "1.0.0",
   "description": "A lambda that retrieves all items in a post.",
   "main": "index.js",

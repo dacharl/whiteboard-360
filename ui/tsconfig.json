@@ -13,6 +13,9 @@
       ],
       "@pages/*": [
         "./pages/*"
+      ],
+      "@models/*": [
+        "./models/*"
       ]
     },
     "allowJs": true,

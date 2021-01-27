@@ -1,13 +1,11 @@
 {
-  "name": "whiteboard-360",
-  "version": "0.1.0",
   "private": true,
   "scripts": {
-    "test": "cd ui && npm i && npm test",
-    "lint": "cd ui && npm i && npm run lint"
+    "lint:ui": "cd ui && yarn lint ."
   },
   "engines": {
     "node": ">=10.14.2",
     "npm": ">=6.13.4"
-  }
+  },
+  "workspaces": ["ui", "lambdas/CreateItemFunction", "lambdas/RetrieveItemsFunction"]
 }
