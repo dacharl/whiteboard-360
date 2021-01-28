@@ -1,9 +1,9 @@
 import React from 'react';
 import { getDefaultNormalizer, render } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import PresentationItem from '@components/presentation-item';
+import Item from '@components/Item';
 
-describe('PresentationItem', () => {
+describe('Item', () => {
   test('should render a title, author, date and description', () => {
     // given
     const mockItemData = {
@@ -14,7 +14,7 @@ describe('PresentationItem', () => {
     };
 
     // when
-    const { getByText } = render(<PresentationItem item={mockItemData} />);
+    const { getByText } = render(<Item item={mockItemData} />);
 
     // then
     expect(getByText(mockItemData.title, { exact: false })).toBeTruthy();
@@ -32,7 +32,7 @@ describe('PresentationItem', () => {
     };
 
     // when
-    const { getByText, queryByText } = render(<PresentationItem item={mockItemData} />);
+    const { getByText, queryByText } = render(<Item item={mockItemData} />);
 
     // then
     expect(getByText(mockItemData.title, { exact: false })).toBeTruthy();

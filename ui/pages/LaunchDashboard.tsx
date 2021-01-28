@@ -1,7 +1,7 @@
 import { NextPage } from 'next';
 import useSWR from 'swr';
 import LaunchDto from '@models/LaunchDto';
-import Launch from '@components/launch';
+import Launch from '@components/Launch';
 import React from 'react';
 
 const LaunchDashboard: NextPage = () => {

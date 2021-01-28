@@ -2,11 +2,11 @@ import LaunchDto from '@models/LaunchDto';
 import { NextPage } from 'next';
 import styles from '@styles/Home.module.css';
 
-interface Props {
+interface LaunchProps {
   launch: LaunchDto;
 }
 
-const Launch: NextPage<Props> = ({ launch }) => {
+const Launch: NextPage<LaunchProps> = ({ launch }) => {
   return launch ? (
     <>
       <h1 className={styles.title}>Next SpaceX Launch: {launch?.mission_name}</h1>

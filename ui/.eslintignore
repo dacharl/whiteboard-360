@@ -1,3 +1,7 @@
+# Next
 next-env.d.ts
 .next/
 out/
+
+# Jest
+config/setupJest.js

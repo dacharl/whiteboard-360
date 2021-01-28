@@ -9,19 +9,19 @@
     "baseUrl": "./",
     "paths": {
       "@components/*": [
-        "./components/*"
+        "components/*"
       ],
       "@pages/*": [
-        "./pages/*"
+        "pages/*"
       ],
       "@models/*": [
-        "./models/*"
+        "models/*"
       ],
       "@styles/*": [
-        "./styles/*"
+        "styles/*"
       ],
       "@api/*": [
-        "./api/*"
+        "api/*"
       ]
     },
     "allowJs": true,

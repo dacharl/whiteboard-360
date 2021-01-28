@@ -1,6 +1,6 @@
 import { NextPage } from 'next';
 
-interface Props {
+interface PresentationItemProps {
   item: {
     title: string;
     author?: string;
@@ -9,7 +9,7 @@ interface Props {
   };
 }
 
-const PresentationItem: NextPage<Props> = ({ item }) => {
+const PresentationItem: NextPage<PresentationItemProps> = ({ item }) => {
   const itemHeading = `${item.date} ${item.title} ${item.author ? '- ' + item.author : ''}`;
   return item ? (
     <>
