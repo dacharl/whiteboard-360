@@ -5,9 +5,9 @@ Resources:
   myDB:
     Type: AWS::Serverless::SimpleTable
     Properties:
-      TableName: tabmine
+      TableName: whiteboard-standup-items
       PrimaryKey:
-        Name: id
+        Name: itemId
         Type: String
       ProvisionedThroughput:
         ReadCapacityUnits: 5
