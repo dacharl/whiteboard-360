@@ -1,8 +1,8 @@
-import { NextPage } from 'next';
-import useSWR from 'swr';
-import LaunchDto from '@models/LaunchDto';
 import Launch from '@components/Launch';
+import LaunchDto from '@models/LaunchDto';
+import { NextPage } from 'next';
 import React from 'react';
+import useSWR from 'swr';
 
 const LaunchDashboard: NextPage = () => {
   const { data: launch } = useSWR<LaunchDto>('https://api.spacexdata.com/v3/launches/next');

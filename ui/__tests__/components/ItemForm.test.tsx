@@ -1,6 +1,6 @@
+import ItemForm from '@components/ItemForm';
 import React from 'react';
 import { render } from '@testing-library/react';
-import ItemForm from '@components/ItemForm';
 
 describe('ItemForm', () => {
   test('should contain a header and description', () => {

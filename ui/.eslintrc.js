@@ -50,7 +50,14 @@ module.exports = {
                     },
                 ],
                 'prettier/prettier': ['error', {}, { usePrettierrc: true }], // Includes .prettierrc.js rules
-                'no-warning-comments': ['warn', { 'terms': ['TODO'] }] // Flag TODO comments as warnings
+                'no-warning-comments': ['warn', { 'terms': ['TODO'] }], // Flag TODO comments as warnings
+                'sort-imports': ['error', {
+                    "ignoreCase": false,
+                    "ignoreDeclarationSort": false,
+                    "ignoreMemberSort": false,
+                    "memberSyntaxSortOrder": ["none", "all", "multiple", "single"],
+                    "allowSeparatedGroups": false
+                }],
             },
         },
     ],

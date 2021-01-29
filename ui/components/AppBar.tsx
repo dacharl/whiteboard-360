@@ -1,5 +1,5 @@
-import { NextPage } from 'next';
 import AppBar from '@material-ui/core/AppBar';
+import { NextPage } from 'next';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 

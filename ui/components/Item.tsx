@@ -1,11 +1,5 @@
+import ItemModel from '@models/ItemModel';
 import { NextPage } from 'next';
-
-export interface ItemModel {
-  title: string;
-  author?: string;
-  date: string;
-  description?: string;
-}
 
 interface ItemProps {
   item: ItemModel;

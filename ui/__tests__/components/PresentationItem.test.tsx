@@ -1,7 +1,7 @@
-import React from 'react';
-import { getDefaultNormalizer, render } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
+import { getDefaultNormalizer, render } from '@testing-library/react';
 import PresentationItem from '@components/PresentationItem';
+import React from 'react';
 
 describe('PresentationItem', () => {
   test('should render a title, author, date and description', () => {

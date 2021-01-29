@@ -8,23 +8,26 @@
     ],
     "baseUrl": "./",
     "paths": {
+      "@api/*": [
+        "api/*"
+      ],
       "@components/*": [
         "components/*"
       ],
-      "@pages/*": [
-        "pages/*"
+      "@config/*": [
+        "config/*"
+      ],
+      "@constants/*": [
+        "constants/*"
       ],
       "@models/*": [
         "models/*"
       ],
+      "@pages/*": [
+        "pages/*"
+      ],
       "@styles/*": [
         "styles/*"
-      ],
-      "@api/*": [
-        "api/*"
-      ],
-      "@config/*": [
-        "config/*"
       ],
     },
     "allowJs": true,

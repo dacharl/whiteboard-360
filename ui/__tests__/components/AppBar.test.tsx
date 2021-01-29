@@ -1,6 +1,6 @@
+import AppBar from '@components/AppBar';
 import React from 'react';
 import { render } from '@testing-library/react';
-import AppBar from '@components/AppBar';
 
 describe('AppBar', () => {
   test('should contain the app name', () => {

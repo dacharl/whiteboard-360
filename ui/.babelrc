@@ -12,12 +12,13 @@
           "./"
         ],
         "alias": {
-          "@components": "./components",
-          "@pages": "./pages",
-          "@models": "./models",
-          "@styles": "./styles",
           "@api": "./api",
-          "@config": "./config"
+          "@components": "./components",
+          "@config": "./config",
+          "@constants": "./constants",
+          "@models": "./models",
+          "@pages": "./pages",
+          "@styles": "./styles"
         }
       }
     ]

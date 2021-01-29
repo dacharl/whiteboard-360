@@ -1,9 +1,9 @@
 import { getDefaultNormalizer, render } from '@testing-library/react';
-import ItemCategory from '@components/ItemCategory';
+import PresentationItemCategory from '@components/PresentationItemCategory';
 import React from 'react';
 
-describe('ItemCategory', () => {
-  test('should contain the category title and expected items', () => {
+describe('PresentationItemCategory', () => {
+  test('should display the presentation category title, items and exit button', () => {
     // given
     const title = 'Category';
     const items = [
@@ -22,7 +22,7 @@ describe('ItemCategory', () => {
     ];
 
     // when
-    const element = render(<ItemCategory title={title} items={items} />);
+    const element = render(<PresentationItemCategory title={title} items={items} />);
 
     // then
     expect(element.getByText(title)).toBeTruthy();
@@ -32,17 +32,6 @@ describe('ItemCategory', () => {
       expect(element.getByText(`- ${item.author}`, { exact: false })).toBeTruthy();
       expect(element.getByText(item.description, { exact: false, normalizer: getDefaultNormalizer({ collapseWhitespace: true }) })).toBeTruthy();
     });
-  });
-
-  test('should have an add item button', () => {
-    // given
-    const title = 'Category';
-    const items = [];
-
-    // when
-    const element = render(<ItemCategory title={title} items={items} />);
-
-    // then
-    expect(element.getByRole('button', { name: 'add item' })).toBeTruthy();
+    expect(element.getByRole('button', { name: 'Exit Presentation' })).toBeTruthy();
   });
 });
