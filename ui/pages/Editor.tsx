@@ -23,7 +23,7 @@ const EditorPage: NextPage<EditorPageProps> = ({ action }) => {
             </Grid>
           ))}
           <Grid item xs={12}>
-            <Button color="primary" onClick={action}>
+            <Button color="primary" variant="contained" onClick={action}>
               Presentation
             </Button>
           </Grid>

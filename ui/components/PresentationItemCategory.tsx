@@ -8,12 +8,12 @@ import ItemModel from '@models/ItemModel';
 import { NextPage } from 'next';
 import PresentationItem from '@components/PresentationItem';
 
-interface ItemCategoryProps {
+interface PresentationItemCategoryProps {
   title: string;
   items: ItemModel[];
 }
 
-const ItemCategory: NextPage<ItemCategoryProps> = ({ title, items }) => {
+const PresentationItemCategory: NextPage<PresentationItemCategoryProps> = ({ title, items }) => {
   return (
     <Card>
       <CardHeader title={title} />
@@ -35,4 +35,4 @@ const ItemCategory: NextPage<ItemCategoryProps> = ({ title, items }) => {
   );
 };
 
-export default ItemCategory;
+export default PresentationItemCategory;
