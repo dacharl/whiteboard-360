@@ -4,29 +4,27 @@ var ddb = new AWS.DynamoDB({ apiVersion: '2012-08-10' });
 exports.handler = async (event) => {
     try {
 
-        var obj = JSON.parse(event.body);
-
-        var ID = obj.id;
-
+        var desiredStandupId = JSON.parse(event.body);
 
         var params = {
-            TableName: 'tabmine',
-            Key: {
-                id: { S: ID }
-            }
-
+            TableName: 'whiteboard-standup-items',
+            ExpressionAttributeValues: {
+           ":standup": {
+          S: desiredStandupId
+         }
+  }, 
+             FilterExpression : "standupId= :standup"
         };
 
         var data;
 
         try {
-            data = await ddb.getItem(params).promise();
+            data = await ddb.scan(params).promise();
             console.log("Item read successfully:", data);
         } catch (err) {
             console.log("Error: ", err);
             data = err;
         }
-
 
         var response = {
             'statusCode': 200,
