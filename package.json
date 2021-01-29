@@ -11,6 +11,11 @@
   "workspaces": [
     "ui",
     "lambdas/CreateItemFunction",
-    "lambdas/RetrieveItemsFunction"
-  ]
+    "lambdas/RetrieveItemsFunction",
+    "lambdas/UpdateItemFunction",
+    "lambdas/DeleteItemFunction"
+  ],
+  "devDependencies": {
+    "yarn": "^1.22.15"
+  }
 }
