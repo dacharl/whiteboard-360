@@ -4,7 +4,7 @@
     "lib": [
       "dom",
       "dom.iterable",
-      "esnext"
+      "esnext",
     ],
     "baseUrl": "./",
     "paths": {
@@ -22,7 +22,10 @@
       ],
       "@api/*": [
         "api/*"
-      ]
+      ],
+      "@config/*": [
+        "config/*"
+      ],
     },
     "allowJs": true,
     "skipLibCheck": true,
@@ -39,9 +42,9 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx"
+    "**/*.tsx",
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
   ]
 }

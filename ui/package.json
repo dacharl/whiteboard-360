@@ -22,8 +22,10 @@
     "os": false
   },
   "dependencies": {
+    "@date-io/dayjs": "1.x",
     "@material-ui/core": "^4.11.3",
     "@material-ui/pickers": "^3.2.10",
+    "dayjs": "^1.10.4",
     "next": "10.0.5",
     "react": "17.0.1",
     "react-dom": "17.0.1",

@@ -16,7 +16,8 @@
           "@pages": "./pages",
           "@models": "./models",
           "@styles": "./styles",
-          "@api": "./api"
+          "@api": "./api",
+          "@config": "./config"
         }
       }
     ]

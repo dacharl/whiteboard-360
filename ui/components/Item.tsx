@@ -1,12 +1,14 @@
 import { NextPage } from 'next';
 
+export interface ItemModel {
+  title: string;
+  author?: string;
+  date: string;
+  description?: string;
+}
+
 interface ItemProps {
-  item: {
-    title: string;
-    author?: string;
-    date: string;
-    description?: string;
-  };
+  item: ItemModel;
 }
 
 const Item: NextPage<ItemProps> = ({ item }) => {

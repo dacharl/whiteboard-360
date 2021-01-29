@@ -50,6 +50,7 @@ module.exports = {
                     },
                 ],
                 'prettier/prettier': ['error', {}, { usePrettierrc: true }], // Includes .prettierrc.js rules
+                'no-warning-comments': ['warn', { 'terms': ['TODO'] }] // Flag TODO comments as warnings
             },
         },
     ],
