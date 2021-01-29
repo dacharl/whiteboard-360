@@ -4,19 +4,19 @@ var ddb = new AWS.DynamoDB({ apiVersion: '2012-08-10' });
 exports.handler = async (event) => {
     try {
 
-        var obj = JSON.parse(event.body);
-
-        var ID = obj.id;
-        var NAME = obj.name;
-
+        var standUpItem = JSON.parse(event.body);
 
         var params = {
-            TableName: 'tabmine',
+            TableName: 'whiteboard-standup-items',
             Item: {
-                id: { S: ID },
-                name: { S: NAME }
+                itemId: { S: standUpItem.itemId },
+                standupId: { S: standUpItem.standupId },
+                category: { S: standUpItem.category },
+                title: { S: standUpItem.title },
+                author: { S: standUpItem.author },
+                date: { S: standUpItem.date },
+                description: { S: standUpItem.description }
             }
-
         };
 
         var data;
@@ -27,7 +27,7 @@ exports.handler = async (event) => {
             console.log("Item entered successfully:", data);
             msg = 'Item entered successfully';
         } catch (err) {
-            console.log("Error: ", err);
+            console.log("Error inserting record into Dynamo Stand-Up Table: ", err);
             msg = err;
         }
 
