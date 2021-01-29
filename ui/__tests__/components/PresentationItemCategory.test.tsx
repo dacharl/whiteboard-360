@@ -32,6 +32,5 @@ describe('PresentationItemCategory', () => {
       expect(element.getByText(`- ${item.author}`, { exact: false })).toBeTruthy();
       expect(element.getByText(item.description, { exact: false, normalizer: getDefaultNormalizer({ collapseWhitespace: true }) })).toBeTruthy();
     });
-    expect(element.getByRole('button', { name: 'Exit Presentation' })).toBeTruthy();
   });
 });

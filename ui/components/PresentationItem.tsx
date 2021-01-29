@@ -1,20 +1,17 @@
+import ItemModel from '@models/ItemModel';
 import { NextPage } from 'next';
+import Typopgraphy from '@material-ui/core/Typography';
 
 interface PresentationItemProps {
-  item: {
-    title: string;
-    author?: string;
-    date: string;
-    description?: string;
-  };
+  item: ItemModel;
 }
 
 const PresentationItem: NextPage<PresentationItemProps> = ({ item }) => {
   const itemHeading = `${item.date} ${item.title} ${item.author ? '- ' + item.author : ''}`;
   return item ? (
     <>
-      <p>{itemHeading}</p>
-      <p>{item.description}</p>
+      <Typopgraphy variant="h6">{itemHeading}</Typopgraphy>
+      <Typopgraphy variant="body1">{item.description}</Typopgraphy>
     </>
   ) : (
     <></>

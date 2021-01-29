@@ -25,6 +25,7 @@
     "@date-io/dayjs": "1.x",
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
+    "@react-hook/event": "^1.2.3",
     "dayjs": "^1.10.4",
     "next": "10.0.5",
     "react": "17.0.1",

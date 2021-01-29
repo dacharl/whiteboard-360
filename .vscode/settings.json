@@ -10,4 +10,5 @@
         "typescript",
         "typescriptreact"
     ],
+    "aws.telemetry": false,
 }
