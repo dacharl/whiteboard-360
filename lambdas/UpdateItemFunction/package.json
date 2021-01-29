@@ -1,0 +1,14 @@
+{
+  "name": "@whiteboard-360/update-item-function",
+  "version": "1.0.0",
+  "description": "A lambda that updates an existing item.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.831.0"
+  }
+}
