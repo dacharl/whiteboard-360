@@ -4,11 +4,15 @@
   "description": "A lambda that creates a new item in a post.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest CreateItemFunction.test.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "aws-sdk": "^2.831.0"
+    "aws-sdk": "^2.989.0"
+  },
+  "devDependencies": {
+    "aws-sdk-mock": "^5.1.0",
+    "jest": "^27.2.5"
   }
 }

@@ -1,47 +1,33 @@
-var AWS = require('aws-sdk');
-var ddb = new AWS.DynamoDB({ apiVersion: '2012-08-10' });
+var AWS = require("aws-sdk");
+var ddb = new AWS.DynamoDB.DocumentClient();
 
-exports.handler = async (event) => {
-    try {
+async function putItem(standUpItem) {
+  try {
+    await ddb.put(buildStandupItemRecord(standUpItem)).promise();
+    return {
+      statusCode: 200,
+      body: '{"message":"Item entered successfully"}',
+    };
+  } catch (err) {
+    return { error: err.message };
+  }
+}
 
-        var standUpItem = JSON.parse(event.body);
+async function buildStandupItemRecord(standUpItem) {
+  return {
+    TableName: "whiteboard-standup-items",
+    Item: {
+      itemId: standUpItem.itemId,
+      standupId: standUpItem.standupId,
+      category: standUpItem.category,
+      title: standUpItem.title,
+      author: standUpItem.author,
+      date: standUpItem.date,
+      description: standUpItem.description,
+    },
+  };
+}
 
-        var params = {
-            TableName: 'whiteboard-standup-items',
-            Item: {
-                itemId: { S: standUpItem.itemId },
-                standupId: { S: standUpItem.standupId },
-                category: { S: standUpItem.category },
-                title: { S: standUpItem.title },
-                author: { S: standUpItem.author },
-                date: { S: standUpItem.date },
-                description: { S: standUpItem.description }
-            }
-        };
-
-        var data;
-        var msg;
-
-        try {
-            data = await ddb.putItem(params).promise();
-            console.log("Item entered successfully:", data);
-            msg = 'Item entered successfully';
-        } catch (err) {
-            console.log("Error inserting record into Dynamo Stand-Up Table: ", err);
-            msg = err;
-        }
-
-
-        var response = {
-            'statusCode': 200,
-            'body': JSON.stringify({
-                message: msg
-            })
-        };
-    } catch (err) {
-        console.log(err);
-        return err;
-    }
-
-    return response;
+exports.CreateItemFunction = async (event) => {
+  return await putItem(event.body);
 };
