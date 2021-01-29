@@ -1,21 +1,27 @@
 var AWS = require('aws-sdk');
-var ddb = new AWS.DynamoDB({ apiVersion: '2012-08-10' });
 
-exports.handler = async (event) => {
+exports.CreateItemFunction = async (event) => {
     try {
+var ddb = new AWS.DynamoDB.DocumentClient();
+        if (!AWS.config.region) {
+            AWS.config.update({
+              region: 'us-east-2'
+            });
+          }
 
-        var standUpItem = JSON.parse(event.body);
+        // var standUpItem = JSON.parse(event.body);
+        var standUpItem = event.body;
 
         var params = {
             TableName: 'whiteboard-standup-items',
             Item: {
-                itemId: { S: standUpItem.itemId },
-                standupId: { S: standUpItem.standupId },
-                category: { S: standUpItem.category },
-                title: { S: standUpItem.title },
-                author: { S: standUpItem.author },
-                date: { S: standUpItem.date },
-                description: { S: standUpItem.description }
+                "itemId":  standUpItem.itemId,
+                "standupId": standUpItem.standupId,
+                "category": standUpItem.category,
+                "title":  standUpItem.title,
+                "author":  standUpItem.author,
+                "date":  standUpItem.date,
+                "description": standUpItem.description 
             }
         };
 
@@ -23,7 +29,7 @@ exports.handler = async (event) => {
         var msg;
 
         try {
-            data = await ddb.putItem(params).promise();
+            data = await ddb.put(params).promise();
             console.log("Item entered successfully:", data);
             msg = 'Item entered successfully';
         } catch (err) {

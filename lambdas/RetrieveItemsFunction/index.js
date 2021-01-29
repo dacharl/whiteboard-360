@@ -3,7 +3,6 @@ var ddb = new AWS.DynamoDB({ apiVersion: '2012-08-10' });
 
 exports.handler = async (event) => {
     try {
-
         var desiredStandupId = JSON.parse(event.body);
 
         var params = {
