@@ -1,17 +1,103 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 
+Parameters:
+  ItemIdName:
+    Type: String
+    Default: itemId
+    Description: Item Id PrimaryKey Name
+  ItemIdType:
+    Type: String
+    Default: S
+    Description: Item Id PrimaryKey Type
+  StandupIdName:
+    Type: String
+    Default: standupId
+    Description: Standup Id Name
+  StandupIdType:
+    Type: String
+    Default: S
+    Description: Standup Id Type
+  CategoryName:
+    Type: String
+    Default: category
+    Description: Category Name
+  CategoryType:
+    Type: String
+    Default: S
+    Description: Category Type
+  TitleName:
+    Type: String
+    Default: title
+    Description: Title Name
+  TitleType:
+    Type: String
+    Default: S
+    Description: Title Type
+  AuthorName:
+    Type: String
+    Default: author
+    Description: Author Name
+  AuthorType:
+    Type: String
+    Default: S
+    Description: Author Type
+  DateName:
+    Type: String
+    Default: date
+    Description: Date Name
+  DateType:
+    Type: String
+    Default: S
+    Description: Date Type
+  DescriptionName:
+    Type: String
+    Default: description
+    Description: Description Name
+  DescriptionType:
+    Type: String
+    Default: S
+    Description: Description Type
+
 Resources:
-  myDB:
-    Type: AWS::Serverless::SimpleTable
+  # myDB:
+  #   Type: AWS::Serverless::SimpleTable
+  #   Properties:
+  #     TableName: whiteboard-standup-items
+  #     PrimaryKey:
+  #       Name: itemId
+  #       Type: String
+  #     ProvisionedThroughput:
+  #       ReadCapacityUnits: 5
+  #       WriteCapacityUnits: 5
+      
+  dynaDB:
+    Type: AWS::DynamoDB::Table
     Properties:
       TableName: whiteboard-standup-items
-      PrimaryKey:
-        Name: itemId
-        Type: String
-      ProvisionedThroughput:
-        ReadCapacityUnits: 5
-        WriteCapacityUnits: 5
+      BillingMode: PAY_PER_REQUEST
+      Tags: 
+        - Key: resourceGroup
+          Value: whiteboard
+      AttributeDefinitions:
+        - AttributeName: !Ref ItemIdName
+          AttributeType: !Ref ItemIdType
+        - AttributeName: !Ref StandupIdName
+          AttributeType: !Ref StandupIdType
+        - AttributeName: !Ref CategoryName
+          AttributeType: !Ref CategoryType
+        - AttributeName: !Ref TitleName
+          AttributeType: !Ref TitleType
+        - AttributeName: !Ref AuthorName
+          AttributeType: !Ref AuthorType
+        - AttributeName: !Ref DateName
+          AttributeType: !Ref DateType
+        - AttributeName: !Ref DescriptionName
+          AttributeType: !Ref DescriptionType
+
+      KeySchema:
+      - AttributeName: !Ref ItemIdName
+        KeyType: HASH
 
   CreateItemFunction:
     Type: AWS::Serverless::Function
@@ -23,11 +109,11 @@ Resources:
         apiForLambda:
           Type: Api
           Properties:
-            Path: /writedb
+            Path: /writeItem
             Method: post
       Policies:
         DynamoDBWritePolicy:
-          TableName: !Ref myDB
+          TableName: !Ref dynaDB
 
   RetrieveItemsFunction:
     Type: AWS::Serverless::Function
@@ -39,8 +125,41 @@ Resources:
         apiForLambda:
           Type: Api
           Properties:
-            Path: /readdb
+            Path: /readItems
             Method: post
       Policies:
         DynamoDBReadPolicy:
-          TableName: !Ref myDB
+          TableName: !Ref dynaDB
+
+  UpdateItemFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: UpdateItemFunction/
+      Handler: index.handler
+      Runtime: nodejs12.x
+      Events:
+        apiForLambda:
+          Type: Api
+          Properties:
+            Path: /updateItem
+            Method: post
+      Policies:
+        DynamoDBCrudPolicy:
+          TableName: !Ref dynaDB
+
+
+  DeleteItemFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: DeleteItemFunction/
+      Handler: index.handler
+      Runtime: nodejs12.x
+      Events:
+        apiForLambda:
+          Type: Api
+          Properties:
+            Path: /deleteItem
+            Method: post
+      Policies:
+        DynamoDBCrudPolicy:
+          TableName: !Ref dynaDB

@@ -11,6 +11,8 @@
   "workspaces": [
     "ui",
     "lambdas/CreateItemFunction",
-    "lambdas/RetrieveItemsFunction"
+    "lambdas/RetrieveItemsFunction",
+    "lambdas/UpdateItemFunction",
+    "lambdas/DeleteItemFunction"
   ]
 }

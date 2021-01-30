@@ -8,39 +8,39 @@ exports.handler = async (event) => {
 
         var params = {
             TableName: 'whiteboard-standup-items',
-             ExpressionAttributeValues: {
-                   ":category": {
-                     S: standUpItem.category
-                    }, 
-                   ":title": {
-                     S: standUpItem.title
-                    },
-                        ":author": {
-                     S: standUpItem.author
-                    },
-                        ":date": {
-                     S: standUpItem.date
-                    },
-                      ":description": {
-                     S: standUpItem.description
-                    },  
-             },
-              ExpressionAttributeNames: {
-              "#category": "category", 
-                 "#title": "title",
-                 "#author": "author",
-                 "#date": "date",
-                 "#description": "description"
-             }, 
-              Key: {
-                 "itemId": {
-                 S: standUpItem.itemId
+            ExpressionAttributeValues: {
+                ":category": {
+                    S: standUpItem.category
+                },
+                ":title": {
+                    S: standUpItem.title
+                },
+                ":author": {
+                    S: standUpItem.author
+                },
+                ":date": {
+                    S: standUpItem.date
+                },
+                ":description": {
+                    S: standUpItem.description
+                },
+            },
+            ExpressionAttributeNames: {
+                "#category": "category",
+                "#title": "title",
+                "#author": "author",
+                "#date": "date",
+                "#description": "description"
+            },
+            Key: {
+                "itemId": {
+                    S: standUpItem.itemId
                 },
                 "standupId": {
-                 S: standUpItem.standupId
+                    S: standUpItem.standupId
                 },
-              },
-         UpdateExpression: "set #category = :category, #title = :title, #author = :author, #date = :date, #description = :description"
+            },
+            UpdateExpression: "set #category = :category, #title = :title, #author = :author, #date = :date, #description = :description"
         };
 
         var data;
