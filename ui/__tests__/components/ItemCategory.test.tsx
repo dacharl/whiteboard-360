@@ -1,9 +1,10 @@
 import { getDefaultNormalizer, render } from '@testing-library/react';
 import ItemCategory from '@components/ItemCategory';
 import React from 'react';
+import userEvent from '@testing-library/user-event';
 
 describe('ItemCategory', () => {
-  test('should contain the category title and expected items', () => {
+  it('should contain the category title and expected items', () => {
     // given
     const title = 'Category';
     const items = [
@@ -34,7 +35,7 @@ describe('ItemCategory', () => {
     });
   });
 
-  test('should have an add item button', () => {
+  it('should have an add item button', () => {
     // given
     const title = 'Category';
     const items = [];
@@ -44,5 +45,19 @@ describe('ItemCategory', () => {
 
     // then
     expect(element.getByRole('button', { name: 'add item' })).toBeTruthy();
+  });
+
+  it('should open the add item dialog when the add item button is clicked', () => {
+    // given
+    const title = 'Category';
+    const items = [];
+    const element = render(<ItemCategory title={title} items={items} />);
+    const addItemButton = element.getByRole('button', { name: 'add item' });
+
+    // when
+    userEvent.click(addItemButton);
+
+    // then
+    expect(element.getByText(`New Item for ${title}`)).toBeTruthy();
   });
 });
