@@ -4,7 +4,7 @@ import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 describe('PresentationPage', () => {
-  test('should contain the exit button', () => {
+  it('should contain the exit button', () => {
     // when
     const element = render(<PresentationPage action={null} />);
 
@@ -12,7 +12,7 @@ describe('PresentationPage', () => {
     expect(element.getByRole('button', { name: 'Exit Presentation' })).toBeTruthy();
   });
 
-  test('should do the thing when the exit button is clicked', () => {
+  it('should do the thing when the exit button is clicked', () => {
     // given
     const mockAction = jest.fn();
     const { getByRole } = render(<PresentationPage action={mockAction} />);

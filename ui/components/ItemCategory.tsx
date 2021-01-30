@@ -4,16 +4,18 @@ import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import IconButton from '@material-ui/core/IconButton';
 import Item from '@components/Item';
+import ItemForm from '@components/ItemForm';
 import ItemModel from '@models/ItemModel';
 import { NextPage } from 'next';
+import { useState } from 'react';
 
 interface AddItemButtonProps {
-  category: string;
+  handleClickOpen: () => void;
 }
 
-const AddItemButton: NextPage<AddItemButtonProps> = ({ category }) => {
+const AddItemButton: NextPage<AddItemButtonProps> = ({ handleClickOpen }) => {
   return (
-    <IconButton color="primary" aria-label="add item" component="span" onClick={() => alert(`new item for ${category.toLowerCase()}`)}>
+    <IconButton color="primary" aria-label="add item" component="span" onClick={handleClickOpen}>
       <AddCircleOutlineRoundedIcon fontSize="large" />
     </IconButton>
   );
@@ -25,14 +27,30 @@ interface ItemCategoryProps {
 }
 
 const ItemCategory: NextPage<ItemCategoryProps> = ({ title, items }) => {
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = (): void => {
+    setOpen(true);
+  };
+
+  const handleCancel = (): void => {
+    setOpen(false);
+  };
+
+  const handleSubmit = (): void => {
+    alert('do the thing');
+    setOpen(false);
+  };
+
   return (
     <Card>
-      <CardHeader title={title} action={<AddItemButton category={title} />} />
+      <CardHeader title={title} action={<AddItemButton handleClickOpen={handleClickOpen} />} />
       <CardContent>
         {items.map((item: ItemModel, index) => (
           <Item key={`${item.title}-${index}`} item={item} />
         ))}
       </CardContent>
+      <ItemForm category={title} open={open} handleCancel={handleCancel} handleSubmit={handleSubmit} />
     </Card>
   );
 };

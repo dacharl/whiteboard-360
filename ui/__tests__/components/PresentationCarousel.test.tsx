@@ -1,13 +1,11 @@
 import '@testing-library/jest-dom/extend-expect';
-import { ESCAPE, RIGHT_ARROW } from '@constants/Keys';
-import { fireEvent, render } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 import PresentationCarousel from '@components/PresentationCarousel';
 import React from 'react';
+import userEvent from '@testing-library/user-event';
 
 describe('PresentationCarousel', () => {
-  test('should begin on the start page', () => {
-    // given
-
+  it('should begin on the start page', () => {
     // when
     const { getByText } = render(<PresentationCarousel action={null} />);
 
@@ -15,34 +13,52 @@ describe('PresentationCarousel', () => {
     expect(getByText('Standup starts', { exact: false })).toBeTruthy();
   });
 
-  xtest('should navigate to the next page when the right arrow key is pressed', () => {
+  it('should navigate to the next page when the right arrow key is pressed', () => {
     // given
-    const mockAction = jest.fn();
-    const element = render(<PresentationCarousel action={mockAction} />);
-    const arrowRightKeyDown = new KeyboardEvent('keydown', { key: RIGHT_ARROW });
-    console.log(JSON.stringify(arrowRightKeyDown));
+    const element = render(<PresentationCarousel action={null} />);
 
     // when
-    element.getByText('Standup starts', { exact: false }).focus();
-    fireEvent.keyDown(document.activeElement || document.body, arrowRightKeyDown);
+    userEvent.type(element.container, '{arrowright}');
 
     // then
-    expect(element.findByText('Standup starts', { exact: false })).toBeFalsy();
+    expect(element.getByText('New Faces', { exact: false })).toBeTruthy();
   });
 
-  xtest('should exit the presentation when the escape key is pressed', () => {
+  it('should navigate to the previous page when the left arrow key is pressed', () => {
+    // given
+    const element = render(<PresentationCarousel action={null} />);
+    userEvent.type(element.container, '{arrowright}');
+
+    // when
+    userEvent.type(element.container, '{arrowleft}');
+
+    // then
+    expect(element.getByText('Standup starts', { exact: false })).toBeTruthy();
+  });
+
+  it('should have an end page', () => {
+    // given
+    const element = render(<PresentationCarousel action={null} />);
+    const outOfBoundsIndex = 10;
+
+    // when
+    for (let i = 0; i < outOfBoundsIndex; i++) {
+      userEvent.type(element.container, '{arrowright}');
+    }
+
+    // then
+    expect(element.getByText('STRETCH', { exact: false })).toBeTruthy();
+  });
+
+  xit('should exit the presentation when the escape key is pressed', async () => {
     // given
     const mockAction = jest.fn();
     const element = render(<PresentationCarousel action={mockAction} />);
-    const escapeKeyDown = new KeyboardEvent('keydown', { key: ESCAPE });
-    console.log(JSON.stringify(escapeKeyDown));
 
     // when
-    element.getByText('Standup starts', { exact: false }).focus();
-    fireEvent.keyDown(document.activeElement || document.body, escapeKeyDown);
+    userEvent.type(element.container, '{escape}');
 
     // then
-    element.getByText('Standup starts', { exact: false }).focus();
-    expect(mockAction).toHaveBeenCalledTimes(1);
+    await waitFor(() => expect(mockAction).toHaveBeenCalledTimes(1));
   });
 });
