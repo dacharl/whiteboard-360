@@ -60,4 +60,20 @@ describe('ItemCategory', () => {
     // then
     expect(element.getByText(`New Item for ${title}`)).toBeTruthy();
   });
+
+  it('should add a new item to be displayed when a new item is added', () => {
+    const title = 'Category';
+    const items = [];
+    const element = render(<ItemCategory title={title} items={items} />);
+    const addItemButton = element.getByRole('button', { name: 'add item' });
+
+    // when
+    userEvent.click(addItemButton);
+    userEvent.type(element.getByLabelText('Title'), 'test title');
+    userEvent.type(element.getByLabelText('Author'), 'some author');
+    userEvent.click(element.getByRole('button', { name: 'Submit' }));
+
+    // then
+    expect(element.getByText('test title', { exact: false })).toBeTruthy();
+  });
 });

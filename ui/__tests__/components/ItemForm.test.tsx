@@ -41,15 +41,18 @@ describe('ItemForm', () => {
     expect(mockHandleCancel).toHaveBeenCalledTimes(1);
   });
 
-  it('should use the handleSubmit callback when the submit button is clicked', () => {
+  it('should use the handleSubmit callback with the submitted item when the submit button is clicked', () => {
     // given
     const mockHandleSubmit = jest.fn();
     const element = render(<ItemForm category={null} open={true} handleCancel={null} handleSubmit={mockHandleSubmit} />);
 
     // when
+    userEvent.type(element.getByLabelText('Title'), 'test title');
+    userEvent.type(element.getByLabelText('Author'), 'some author');
     userEvent.click(element.getByRole('button', { name: 'Submit' }));
 
     // then
     expect(mockHandleSubmit).toHaveBeenCalledTimes(1);
+    expect(mockHandleSubmit).toHaveBeenCalledWith({ title: 'test title', author: 'some author', date: '', description: '' });
   });
 });

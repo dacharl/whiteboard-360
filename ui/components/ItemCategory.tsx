@@ -28,6 +28,7 @@ interface ItemCategoryProps {
 
 const ItemCategory: NextPage<ItemCategoryProps> = ({ title, items }) => {
   const [open, setOpen] = useState(false);
+  const [displayedItems, setDisplayedItems] = useState(items);
 
   const handleClickOpen = (): void => {
     setOpen(true);
@@ -37,8 +38,8 @@ const ItemCategory: NextPage<ItemCategoryProps> = ({ title, items }) => {
     setOpen(false);
   };
 
-  const handleSubmit = (): void => {
-    alert('do the thing');
+  const handleSubmit = (item: ItemModel): void => {
+    setDisplayedItems([...displayedItems, item]);
     setOpen(false);
   };
 
@@ -46,7 +47,7 @@ const ItemCategory: NextPage<ItemCategoryProps> = ({ title, items }) => {
     <Card>
       <CardHeader title={title} action={<AddItemButton handleClickOpen={handleClickOpen} />} />
       <CardContent>
-        {items.map((item: ItemModel, index) => (
+        {displayedItems.map((item: ItemModel, index) => (
           <Item key={`${item.title}-${index}`} item={item} />
         ))}
       </CardContent>
