@@ -9,7 +9,7 @@ describe('API - Get', () => {
     fetchMock.doMock();
   });
 
-  test('should get something', async () => {
+  it('should get something', async () => {
     // given
     const mockPayload = { data: 'hi' };
     fetchMock.mockResponseOnce(JSON.stringify(mockPayload));

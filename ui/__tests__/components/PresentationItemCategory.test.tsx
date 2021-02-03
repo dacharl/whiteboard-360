@@ -3,7 +3,7 @@ import PresentationItemCategory from '@components/PresentationItemCategory';
 import React from 'react';
 
 describe('PresentationItemCategory', () => {
-  test('should display the presentation category title, items and exit button', () => {
+  it('should display the presentation category title, items and exit button', () => {
     // given
     const title = 'Category';
     const items = [

@@ -6,8 +6,11 @@ import userEvent from '@testing-library/user-event';
 
 describe('PresentationCarousel', () => {
   it('should begin on the start page', () => {
+    // given
+    const categories = ['Category 1', 'Category 2', 'Category 3'];
+
     // when
-    const { getByText } = render(<PresentationCarousel action={null} />);
+    const { getByText } = render(<PresentationCarousel handleModeChange={null} categories={categories} />);
 
     // then
     expect(getByText('Standup starts', { exact: false })).toBeTruthy();
@@ -15,18 +18,22 @@ describe('PresentationCarousel', () => {
 
   it('should navigate to the next page when the right arrow key is pressed', () => {
     // given
-    const element = render(<PresentationCarousel action={null} />);
+    const categories = ['Category 1', 'Category 2', 'Category 3'];
+    const element = render(<PresentationCarousel handleModeChange={null} categories={categories} />);
 
-    // when
-    userEvent.type(element.container, '{arrowright}');
+    for (let i = 0; i < categories.length; i++) {
+      // when
+      userEvent.type(element.container, '{arrowright}');
 
-    // then
-    expect(element.getByText('New Faces', { exact: false })).toBeTruthy();
+      // then
+      expect(element.getByText(categories[i], { exact: false })).toBeTruthy();
+    }
   });
 
   it('should navigate to the previous page when the left arrow key is pressed', () => {
     // given
-    const element = render(<PresentationCarousel action={null} />);
+    const categories = ['Category 1', 'Category 2', 'Category 3'];
+    const element = render(<PresentationCarousel handleModeChange={null} categories={categories} />);
     userEvent.type(element.container, '{arrowright}');
 
     // when
@@ -36,13 +43,14 @@ describe('PresentationCarousel', () => {
     expect(element.getByText('Standup starts', { exact: false })).toBeTruthy();
   });
 
-  it('should have an end page', () => {
+  it('should navigate to the end page after the left arrow key is pressed enough times', () => {
     // given
-    const element = render(<PresentationCarousel action={null} />);
-    const outOfBoundsIndex = 10;
+    const categories = ['Category 1', 'Category 2', 'Category 3'];
+    const element = render(<PresentationCarousel handleModeChange={null} categories={categories} />);
+    const endPageIndex = categories.length + 1;
 
     // when
-    for (let i = 0; i < outOfBoundsIndex; i++) {
+    for (let i = 0; i < endPageIndex; i++) {
       userEvent.type(element.container, '{arrowright}');
     }
 
@@ -52,8 +60,9 @@ describe('PresentationCarousel', () => {
 
   xit('should exit the presentation when the escape key is pressed', async () => {
     // given
+    const categories = ['Category 1', 'Category 2', 'Category 3'];
     const mockAction = jest.fn();
-    const element = render(<PresentationCarousel action={mockAction} />);
+    const element = render(<PresentationCarousel handleModeChange={mockAction} categories={categories} />);
 
     // when
     userEvent.type(element.container, '{escape}');

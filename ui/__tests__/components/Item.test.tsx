@@ -4,7 +4,7 @@ import Item from '@components/Item';
 import React from 'react';
 
 describe('Item', () => {
-  test('should render a title, author, date and description', () => {
+  it('should render a title, author, date and description', () => {
     // given
     const mockItemData = {
       title: 'A nifty post',
@@ -23,7 +23,7 @@ describe('Item', () => {
     expect(getByText(mockItemData.description, { exact: false, normalizer: getDefaultNormalizer({ collapseWhitespace: true }) })).toBeTruthy();
   });
 
-  test('should not render the author if the item is anonymous', () => {
+  it('should not render the author if the item is anonymous', () => {
     // given
     const mockItemData = {
       title: 'A nifty post',

@@ -4,17 +4,20 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import ItemCategory from '@components/ItemCategory';
 import { NextPage } from 'next';
+import { getStandups } from '@api/getStandups';
 import stubItems from '@models/ItemModel.stub';
 
 interface EditorPageProps {
-  action: () => void;
+  handleModeChange: () => void;
+  categories: string[];
 }
 
-const EditorPage: NextPage<EditorPageProps> = ({ action }) => {
-  const categories: string[] = ['New Faces', 'Helps', 'Interestings', 'Events', 'Shoutouts'];
+const EditorView: NextPage<EditorPageProps> = ({ handleModeChange, categories }) => {
+  const standups = getStandups();
+
   return (
     <>
-      <AppBar />
+      <AppBar standups={standups} />
       <Container maxWidth="md">
         <Grid container spacing={2}>
           {categories.map((category) => (
@@ -23,7 +26,7 @@ const EditorPage: NextPage<EditorPageProps> = ({ action }) => {
             </Grid>
           ))}
           <Grid item xs={12}>
-            <Button color="primary" variant="contained" onClick={action}>
+            <Button color="primary" variant="contained" onClick={handleModeChange}>
               Presentation
             </Button>
           </Grid>
@@ -33,4 +36,4 @@ const EditorPage: NextPage<EditorPageProps> = ({ action }) => {
   );
 };
 
-export default EditorPage;
+export default EditorView;
