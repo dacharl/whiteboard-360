@@ -8,7 +8,11 @@ import stubItems from '@models/ItemModel.stub';
 import useEvent from '@react-hook/event';
 import { useState } from 'react';
 
-const PresentationStart: NextPage<PresentationCarouselProps> = ({ action }) => {
+interface PresentationBookendProps {
+  handleModeChange: () => void;
+}
+
+const PresentationStart: NextPage<PresentationBookendProps> = ({ handleModeChange }) => {
   return (
     <Grid container direction="column" justify="space-between" alignItems="stretch">
       <Grid item xs={12}>
@@ -19,7 +23,7 @@ const PresentationStart: NextPage<PresentationCarouselProps> = ({ action }) => {
       <Grid item xs={12}>
         <Grid container justify="flex-end">
           <Grid item>
-            <Button color="primary" variant="contained" onClick={action}>
+            <Button color="primary" variant="contained" onClick={handleModeChange}>
               Exit Presentation
             </Button>
           </Grid>
@@ -29,7 +33,7 @@ const PresentationStart: NextPage<PresentationCarouselProps> = ({ action }) => {
   );
 };
 
-const PresentationEnd: NextPage<PresentationCarouselProps> = ({ action }) => {
+const PresentationEnd: NextPage<PresentationBookendProps> = ({ handleModeChange }) => {
   return (
     <Grid container direction="column" justify="space-between">
       <Grid item xs={12}>
@@ -40,7 +44,7 @@ const PresentationEnd: NextPage<PresentationCarouselProps> = ({ action }) => {
       <Grid item xs={12}>
         <Grid container justify="flex-end">
           <Grid item>
-            <Button color="primary" variant="contained" onClick={action}>
+            <Button color="primary" variant="contained" onClick={handleModeChange}>
               Exit Presentation
             </Button>
           </Grid>
@@ -51,12 +55,12 @@ const PresentationEnd: NextPage<PresentationCarouselProps> = ({ action }) => {
 };
 
 interface PresentationCarouselProps {
-  action: () => void;
+  handleModeChange: () => void;
+  categories: string[];
 }
 
-const PresentationCarousel: NextPage<PresentationCarouselProps> = ({ action }) => {
+const PresentationCarousel: NextPage<PresentationCarouselProps> = ({ handleModeChange, categories }) => {
   const [index, setIndex] = useState(0);
-  const categories = ['New Faces', 'Helps', 'Interestings', 'Events', 'Shoutouts'];
 
   const withinLowerBound = (index: number): boolean => {
     return index > 0;
@@ -79,7 +83,7 @@ const PresentationCarousel: NextPage<PresentationCarouselProps> = ({ action }) =
         }
         break;
       case ESCAPE:
-        action();
+        handleModeChange();
         break;
       default:
     }
@@ -89,11 +93,11 @@ const PresentationCarousel: NextPage<PresentationCarouselProps> = ({ action }) =
 
   const renderPage = (index: number): JSX.Element => {
     if (index === 0) {
-      return <PresentationStart action={action} />;
+      return <PresentationStart handleModeChange={handleModeChange} />;
     } else if (withinUpperBound(index)) {
       return <PresentationItemCategory title={categories[index - 1]} items={stubItems} />;
     } else {
-      return <PresentationEnd action={action} />;
+      return <PresentationEnd handleModeChange={handleModeChange} />;
     }
   };
 

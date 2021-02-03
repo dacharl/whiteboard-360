@@ -3,15 +3,16 @@ import { NextPage } from 'next';
 import PresentationCarousel from '@components/PresentationCarousel';
 
 interface PresentationPageProps {
-  action: () => void;
+  handleModeChange: () => void;
+  categories: string[];
 }
 
-const PresentationPage: NextPage<PresentationPageProps> = ({ action }) => {
+const PresentationView: NextPage<PresentationPageProps> = ({ handleModeChange, categories }) => {
   return (
     <Container maxWidth="xl" style={{ padding: '0' }}>
-      <PresentationCarousel action={action} />
+      <PresentationCarousel handleModeChange={handleModeChange} categories={categories} />
     </Container>
   );
 };
 
-export default PresentationPage;
+export default PresentationView;
