@@ -1,13 +1,19 @@
-import { List, ListItem, ListItemText } from '@material-ui/core';
 import { useEffect, useState } from 'react';
 import AddCircleOutlineRoundedIcon from '@material-ui/icons/AddCircleOutlineRounded';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
 import ItemDto from '@models/ItemDto';
 import ItemForm from '@components/ItemForm';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import ListItemText from '@material-ui/core/ListItemText';
 import { NextPage } from 'next';
+// import { withStyles } from '@material-ui/core/styles';
 
 interface AddItemButtonProps {
   handleClickOpen: () => void;
@@ -20,6 +26,12 @@ const AddItemButton: NextPage<AddItemButtonProps> = ({ handleClickOpen }) => {
     </IconButton>
   );
 };
+
+// const ListItemWithWiderSecondaryAction = withStyles({
+//   secondaryAction: {
+//     paddingRight: 96,
+//   },
+// })(ListItem);
 
 interface ItemCategoryProps {
   title: string;
@@ -59,6 +71,14 @@ const ItemCategory: NextPage<ItemCategoryProps> = ({ title, items }) => {
                   primary={`${item.date} ${item.title}${item.author ? ' (' + item.author + ')' : ''}`}
                   secondary={item.description ? item.description : null}
                 />
+                <ListItemSecondaryAction>
+                  <IconButton aria-label="edit item">
+                    <EditIcon />
+                  </IconButton>
+                  <IconButton edge="end" aria-label="delete item">
+                    <DeleteForeverIcon />
+                  </IconButton>
+                </ListItemSecondaryAction>
               </ListItem>
             ))}
         </List>

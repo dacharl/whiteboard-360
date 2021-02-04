@@ -12,7 +12,7 @@ interface PresentationItemCategoryProps {
 
 const PresentationItemCategory: NextPage<PresentationItemCategoryProps> = ({ title, items }) => {
   return (
-    <Card style={{ height: '100vh' }}>
+    <Card style={{ height: '100vh' }} square>
       <CardHeader title={title} />
       <CardContent>
         {items.map((item: ItemDto, index) => (
