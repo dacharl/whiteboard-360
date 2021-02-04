@@ -8,12 +8,18 @@ describe('PresentationItemCategory', () => {
     const title = 'Category';
     const items = [
       {
+        itemId: '1',
+        standupId: '1',
+        category: 'Category A',
         title: 'Title 1',
         author: 'Author 1',
         date: '2020-10-10',
         description: 'Description 1',
       },
       {
+        itemId: '2',
+        standupId: '1',
+        category: 'Category A',
         title: 'Title 2',
         author: 'Author 2',
         date: '2020-10-11',

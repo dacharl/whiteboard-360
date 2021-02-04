@@ -1,5 +1,6 @@
 import { EDITOR, PRESENTATION } from '@constants/Mode';
 import { getStandup, getStandupIds } from '@api/getStandups';
+import { useEffect, useState } from 'react';
 import EditorView from '@components/EditorView';
 import Head from 'next/head';
 import { NextPage } from 'next';
@@ -9,7 +10,7 @@ import StandupDto from '@models/StandupDto';
 import StaticPaths from '@models/next/StaticPaths';
 import StaticProps from '@models/next/StaticProps';
 import { getCategories } from '@api/getCategories';
-import { useState } from 'react';
+import { getItems } from '@api/getItems';
 
 export async function getStaticProps({ params }: PathParam): Promise<StaticProps> {
   const standup = getStandup(params.id);
@@ -35,6 +36,11 @@ interface StandupPageProps {
 const StandupPage: NextPage<StandupPageProps> = ({ standup }) => {
   const [mode, setMode] = useState(EDITOR);
   const categories = getCategories();
+  const [items, setItems] = useState(getItems(standup.id.toString()));
+
+  useEffect(() => {
+    setItems(getItems(standup.id.toString()));
+  }, [standup]);
 
   return (
     <>
@@ -43,9 +49,9 @@ const StandupPage: NextPage<StandupPageProps> = ({ standup }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {mode === EDITOR ? (
-        <EditorView handleModeChange={() => setMode(PRESENTATION)} categories={categories} />
+        <EditorView handleModeChange={() => setMode(PRESENTATION)} categories={categories} items={items} />
       ) : (
-        <PresentationView handleModeChange={() => setMode(EDITOR)} categories={categories} />
+        <PresentationView handleModeChange={() => setMode(EDITOR)} categories={categories} items={items} />
       )}
     </>
   );

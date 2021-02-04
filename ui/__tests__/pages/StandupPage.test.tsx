@@ -2,6 +2,7 @@ import Head from 'next/head';
 import React from 'react';
 import StandupPage from '@pages/standup/[id]';
 import { getCategories } from '@api/getCategories';
+import { getItems } from '@api/getItems';
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
@@ -28,6 +29,44 @@ jest.mock('@api/getCategories', () => {
 /* @ts-ignore */
 getCategories.mockImplementation(() => {
   return ['Category 1', 'Category 2', 'Category 3'];
+});
+
+jest.mock('@api/getItems', () => {
+  return { getItems: jest.fn() };
+});
+
+/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
+/* @ts-ignore */
+getItems.mockImplementation(() => {
+  return [
+    {
+      itemId: '1',
+      standupId: '1',
+      category: 'Category 1',
+      title: 'Title 1',
+      author: 'Author 1',
+      date: '2020-01-10',
+      description: 'Description 1',
+    },
+    {
+      itemId: '2',
+      standupId: '1',
+      category: 'Category 2',
+      title: 'Title 2',
+      author: 'Author 2',
+      date: '2020-01-11',
+      description: 'Description 2',
+    },
+    {
+      itemId: '3',
+      standupId: '1',
+      category: 'Category 3',
+      title: 'Title 3',
+      author: 'Author 3',
+      date: '2020-01-12',
+      description: 'Description 3',
+    },
+  ];
 });
 
 describe('StandupPage', () => {

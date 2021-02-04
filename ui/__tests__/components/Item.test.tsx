@@ -7,6 +7,9 @@ describe('Item', () => {
   it('should render a title, author, date and description', () => {
     // given
     const mockItemData = {
+      itemId: '1',
+      standupId: '1',
+      category: 'Category',
       title: 'A nifty post',
       author: 'Charles',
       date: '2021-01-01',
@@ -26,6 +29,9 @@ describe('Item', () => {
   it('should not render the author if the item is anonymous', () => {
     // given
     const mockItemData = {
+      itemId: '1',
+      standupId: '1',
+      category: 'Category',
       title: 'A nifty post',
       date: '2021-01-01',
       description: 'Check it out at: https://news.site.com/20210101/nifty-article',
