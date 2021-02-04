@@ -16,6 +16,7 @@
           "@components": "./components",
           "@config": "./config",
           "@constants": "./constants",
+          "@lib": "./lib",
           "@models": "./models",
           "@pages": "./pages",
           "@styles": "./styles"

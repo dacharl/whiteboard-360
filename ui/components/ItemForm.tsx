@@ -5,7 +5,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Grid from '@material-ui/core/Grid';
-import ItemModel from '@models/ItemModel';
+import ItemDto from '@models/ItemDto';
 import { NextPage } from 'next';
 import TextField from '@material-ui/core/TextField';
 import { useState } from 'react';
@@ -14,11 +14,11 @@ interface ItemFormProps {
   category: string;
   open: boolean;
   handleCancel: () => void;
-  handleSubmit: (item: ItemModel) => void;
+  handleSubmit: (item: ItemDto) => void;
 }
 
 const ItemForm: NextPage<ItemFormProps> = ({ category, open, handleCancel, handleSubmit }) => {
-  const [item, setItem] = useState({ title: '', author: '', date: '', description: '' });
+  const [item, setItem] = useState({ itemId: '', standupId: '', category: '', title: '', author: '', date: '', description: '' });
 
   return (
     <Dialog open={open} onClose={handleCancel} fullWidth>
@@ -80,7 +80,7 @@ const ItemForm: NextPage<ItemFormProps> = ({ category, open, handleCancel, handl
           color="primary"
           onClick={() => {
             handleSubmit(item);
-            setItem({ title: '', author: '', date: '', description: '' });
+            setItem({ itemId: '', standupId: '', category: '', title: '', author: '', date: '', description: '' });
           }}
         >
           Submit

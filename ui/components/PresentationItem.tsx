@@ -1,9 +1,9 @@
-import ItemModel from '@models/ItemModel';
+import ItemDto from '@models/ItemDto';
 import { NextPage } from 'next';
 import Typopgraphy from '@material-ui/core/Typography';
 
 interface PresentationItemProps {
-  item: ItemModel;
+  item: ItemDto;
 }
 
 const PresentationItem: NextPage<PresentationItemProps> = ({ item }) => {

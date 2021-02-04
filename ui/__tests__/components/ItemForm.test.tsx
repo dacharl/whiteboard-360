@@ -53,6 +53,14 @@ describe('ItemForm', () => {
 
     // then
     expect(mockHandleSubmit).toHaveBeenCalledTimes(1);
-    expect(mockHandleSubmit).toHaveBeenCalledWith({ title: 'test title', author: 'some author', date: '', description: '' });
+    expect(mockHandleSubmit).toHaveBeenCalledWith({
+      itemId: '',
+      standupId: '',
+      category: '',
+      title: 'test title',
+      author: 'some author',
+      date: '',
+      description: '',
+    });
   });
 });

@@ -1,12 +1,12 @@
-import { ESCAPE, LEFT_ARROW, RIGHT_ARROW } from '@constants/Keys';
+import { ESCAPE, LEFT_ARROW, RIGHT_ARROW, SPACE } from '@constants/Keys';
+import { useEffect, useState } from 'react';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+import ItemDto from '@models/ItemDto';
 import { NextPage } from 'next';
 import PresentationItemCategory from './PresentationItemCategory';
 import { Typography } from '@material-ui/core';
-import stubItems from '@models/ItemModel.stub';
 import useEvent from '@react-hook/event';
-import { useState } from 'react';
 
 interface PresentationBookendProps {
   handleModeChange: () => void;
@@ -57,10 +57,16 @@ const PresentationEnd: NextPage<PresentationBookendProps> = ({ handleModeChange 
 interface PresentationCarouselProps {
   handleModeChange: () => void;
   categories: string[];
+  items: Map<string, ItemDto[]>;
 }
 
-const PresentationCarousel: NextPage<PresentationCarouselProps> = ({ handleModeChange, categories }) => {
+const PresentationCarousel: NextPage<PresentationCarouselProps> = ({ handleModeChange, categories, items }) => {
   const [index, setIndex] = useState(0);
+  const [itemMapping, setItemMapping] = useState(items);
+
+  useEffect(() => {
+    setItemMapping(items);
+  }, [items]);
 
   const withinLowerBound = (index: number): boolean => {
     return index > 0;
@@ -77,6 +83,7 @@ const PresentationCarousel: NextPage<PresentationCarouselProps> = ({ handleModeC
           setIndex(index - 1);
         }
         break;
+      case SPACE:
       case RIGHT_ARROW:
         if (withinUpperBound(index)) {
           setIndex(index + 1);
@@ -95,7 +102,8 @@ const PresentationCarousel: NextPage<PresentationCarouselProps> = ({ handleModeC
     if (index === 0) {
       return <PresentationStart handleModeChange={handleModeChange} />;
     } else if (withinUpperBound(index)) {
-      return <PresentationItemCategory title={categories[index - 1]} items={stubItems} />;
+      const category = categories[index - 1];
+      return <PresentationItemCategory title={category} items={itemMapping.get(category)} />;
     } else {
       return <PresentationEnd handleModeChange={handleModeChange} />;
     }

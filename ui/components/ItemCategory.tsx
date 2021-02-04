@@ -1,13 +1,13 @@
+import { List, ListItem, ListItemText } from '@material-ui/core';
+import { useEffect, useState } from 'react';
 import AddCircleOutlineRoundedIcon from '@material-ui/icons/AddCircleOutlineRounded';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import IconButton from '@material-ui/core/IconButton';
-import Item from '@components/Item';
+import ItemDto from '@models/ItemDto';
 import ItemForm from '@components/ItemForm';
-import ItemModel from '@models/ItemModel';
 import { NextPage } from 'next';
-import { useState } from 'react';
 
 interface AddItemButtonProps {
   handleClickOpen: () => void;
@@ -16,14 +16,14 @@ interface AddItemButtonProps {
 const AddItemButton: NextPage<AddItemButtonProps> = ({ handleClickOpen }) => {
   return (
     <IconButton color="primary" aria-label="add item" component="span" onClick={handleClickOpen}>
-      <AddCircleOutlineRoundedIcon fontSize="large" />
+      <AddCircleOutlineRoundedIcon fontSize="large" color="inherit" />
     </IconButton>
   );
 };
 
 interface ItemCategoryProps {
   title: string;
-  items: ItemModel[];
+  items: ItemDto[];
 }
 
 const ItemCategory: NextPage<ItemCategoryProps> = ({ title, items }) => {
@@ -38,18 +38,30 @@ const ItemCategory: NextPage<ItemCategoryProps> = ({ title, items }) => {
     setOpen(false);
   };
 
-  const handleSubmit = (item: ItemModel): void => {
+  const handleSubmit = (item: ItemDto): void => {
     setDisplayedItems([...displayedItems, item]);
     setOpen(false);
   };
+
+  useEffect(() => {
+    setDisplayedItems(items);
+  }, [items]);
 
   return (
     <Card>
       <CardHeader title={title} action={<AddItemButton handleClickOpen={handleClickOpen} />} />
       <CardContent>
-        {displayedItems.map((item: ItemModel, index) => (
-          <Item key={`${item.title}-${index}`} item={item} />
-        ))}
+        <List>
+          {displayedItems &&
+            displayedItems.map((item: ItemDto) => (
+              <ListItem key={`${item.title}-${item.itemId}`}>
+                <ListItemText
+                  primary={`${item.date} ${item.title}${item.author ? ' (' + item.author + ')' : ''}`}
+                  secondary={item.description ? item.description : null}
+                />
+              </ListItem>
+            ))}
+        </List>
       </CardContent>
       <ItemForm category={title} open={open} handleCancel={handleCancel} handleSubmit={handleSubmit} />
     </Card>
