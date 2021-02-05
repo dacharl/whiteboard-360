@@ -14,11 +14,12 @@ interface ItemFormProps {
   category: string;
   open: boolean;
   handleCancel: () => void;
-  handleSubmit: (item: ItemDto) => void;
+  handleSubmit: (item: ItemDto, incomingItem?: ItemDto) => void;
+  incomingItem?: ItemDto;
 }
 
-const ItemForm: NextPage<ItemFormProps> = ({ category, open, handleCancel, handleSubmit }) => {
-  const [item, setItem] = useState({ itemId: '', standupId: '', category: '', title: '', author: '', date: '', description: '' });
+const ItemForm: NextPage<ItemFormProps> = ({ category, open, handleCancel, handleSubmit, incomingItem }) => {
+  const [item, setItem] = useState(incomingItem || { itemId: '', standupId: '', category: '', title: '', author: '', date: '', description: '' });
 
   return (
     <Dialog open={open} onClose={handleCancel} fullWidth>
@@ -79,7 +80,7 @@ const ItemForm: NextPage<ItemFormProps> = ({ category, open, handleCancel, handl
         <Button
           color="primary"
           onClick={() => {
-            handleSubmit(item);
+            incomingItem ? handleSubmit(item, incomingItem) : handleSubmit(item);
             setItem({ itemId: '', standupId: '', category: '', title: '', author: '', date: '', description: '' });
           }}
         >
