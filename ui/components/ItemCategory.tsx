@@ -3,15 +3,12 @@ import AddCircleOutlineRoundedIcon from '@material-ui/icons/AddCircleOutlineRoun
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
 import ItemDto from '@models/ItemDto';
 import ItemForm from '@components/ItemForm';
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListItemText from '@material-ui/core/ListItemText';
+
+import { ListStandupItem } from './ListStandupItem';
 import { NextPage } from 'next';
 // import { withStyles } from '@material-ui/core/styles';
 
@@ -65,21 +62,8 @@ const ItemCategory: NextPage<ItemCategoryProps> = ({ title, items }) => {
       <CardContent>
         <List>
           {displayedItems &&
-            displayedItems.map((item: ItemDto) => (
-              <ListItem key={`${item.title}-${item.itemId}`}>
-                <ListItemText
-                  primary={`${item.date} ${item.title}${item.author ? ' (' + item.author + ')' : ''}`}
-                  secondary={item.description ? item.description : null}
-                />
-                <ListItemSecondaryAction>
-                  <IconButton aria-label="edit item">
-                    <EditIcon />
-                  </IconButton>
-                  <IconButton edge="end" aria-label="delete item">
-                    <DeleteForeverIcon />
-                  </IconButton>
-                </ListItemSecondaryAction>
-              </ListItem>
+            displayedItems.map((item: ItemDto, i) => (
+              <ListStandupItem item={item} title={title} displayedItems={displayedItems} setDisplayedItems={setDisplayedItems} key={i} />
             ))}
         </List>
       </CardContent>
