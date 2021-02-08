@@ -49,7 +49,13 @@ const StandupPage: NextPage<StandupPageProps> = ({ standup }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {mode === EDITOR ? (
-        <EditorView handleModeChange={() => setMode(PRESENTATION)} categories={categories} items={items} />
+        <EditorView
+          handleModeChange={() => setMode(PRESENTATION)}
+          categories={categories}
+          standupId={standup.id.toString()}
+          items={items}
+          setItems={setItems}
+        />
       ) : (
         <PresentationView handleModeChange={() => setMode(EDITOR)} categories={categories} items={items} />
       )}

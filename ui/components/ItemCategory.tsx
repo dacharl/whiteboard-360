@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import AddCircleOutlineRoundedIcon from '@material-ui/icons/AddCircleOutlineRounded';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -10,6 +9,7 @@ import List from '@material-ui/core/List';
 
 import { ListStandupItem } from './ListStandupItem';
 import { NextPage } from 'next';
+import { useState } from 'react';
 // import { withStyles } from '@material-ui/core/styles';
 
 interface AddItemButtonProps {
@@ -32,12 +32,13 @@ const AddItemButton: NextPage<AddItemButtonProps> = ({ handleClickOpen }) => {
 
 interface ItemCategoryProps {
   title: string;
+  standupId: string;
   items: ItemDto[];
+  setItems: (items: ItemDto[]) => void;
 }
 
-const ItemCategory: NextPage<ItemCategoryProps> = ({ title, items }) => {
+const ItemCategory: NextPage<ItemCategoryProps> = ({ title, standupId, items, setItems }) => {
   const [open, setOpen] = useState(false);
-  const [displayedItems, setDisplayedItems] = useState(items);
 
   const handleClickOpen = (): void => {
     setOpen(true);
@@ -48,26 +49,22 @@ const ItemCategory: NextPage<ItemCategoryProps> = ({ title, items }) => {
   };
 
   const handleSubmit = (item: ItemDto): void => {
-    setDisplayedItems([...displayedItems, item]);
+    setItems([...items, item]);
     setOpen(false);
   };
-
-  useEffect(() => {
-    setDisplayedItems(items);
-  }, [items]);
 
   return (
     <Card>
       <CardHeader title={title} action={<AddItemButton handleClickOpen={handleClickOpen} />} />
       <CardContent>
         <List>
-          {displayedItems &&
-            displayedItems.map((item: ItemDto, i) => (
-              <ListStandupItem item={item} title={title} displayedItems={displayedItems} setDisplayedItems={setDisplayedItems} key={i} />
+          {items &&
+            items.map((item: ItemDto, i) => (
+              <ListStandupItem item={item} title={title} standupId={standupId} displayedItems={items} setDisplayedItems={setItems} key={i} />
             ))}
         </List>
       </CardContent>
-      <ItemForm category={title} open={open} handleCancel={handleCancel} handleSubmit={handleSubmit} />
+      <ItemForm category={title} standupId={standupId} open={open} handleCancel={handleCancel} handleSubmit={handleSubmit} />
     </Card>
   );
 };

@@ -12,11 +12,12 @@ import { NextPage } from 'next';
 interface ListStandupItemProps {
   item: ItemDto;
   title: string;
+  standupId: string;
   displayedItems: ItemDto[];
   setDisplayedItems: (item: ItemDto[]) => void;
 }
 
-export const ListStandupItem: NextPage<ListStandupItemProps> = ({ item, title, displayedItems, setDisplayedItems }) => {
+export const ListStandupItem: NextPage<ListStandupItemProps> = ({ item, title, standupId, displayedItems, setDisplayedItems }) => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
   const handleClickOpenEdit = (): void => {
@@ -55,7 +56,14 @@ export const ListStandupItem: NextPage<ListStandupItemProps> = ({ item, title, d
           <DeleteForeverIcon />
         </IconButton>
       </ListItemSecondaryAction>
-      <ItemForm category={title} open={isEditModalOpen} handleCancel={handleCancelEdit} handleSubmit={handleSubmitEdit} incomingItem={item} />
+      <ItemForm
+        category={title}
+        standupId={standupId}
+        open={isEditModalOpen}
+        handleCancel={handleCancelEdit}
+        handleSubmit={handleSubmitEdit}
+        incomingItem={item}
+      />
     </ListItem>
   );
 };

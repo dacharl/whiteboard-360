@@ -12,14 +12,15 @@ import { useState } from 'react';
 
 interface ItemFormProps {
   category: string;
+  standupId: string;
   open: boolean;
   handleCancel: () => void;
   handleSubmit: (item: ItemDto, incomingItem?: ItemDto) => void;
   incomingItem?: ItemDto;
 }
 
-const ItemForm: NextPage<ItemFormProps> = ({ category, open, handleCancel, handleSubmit, incomingItem }) => {
-  const [item, setItem] = useState(incomingItem || { itemId: '', standupId: '', category: '', title: '', author: '', date: '', description: '' });
+const ItemForm: NextPage<ItemFormProps> = ({ category, standupId, open, handleCancel, handleSubmit, incomingItem }) => {
+  const [item, setItem] = useState(incomingItem || { itemId: '', standupId: standupId, category: category, title: '', author: '', date: '', description: '' });
 
   return (
     <Dialog open={open} onClose={handleCancel} fullWidth>
@@ -81,7 +82,7 @@ const ItemForm: NextPage<ItemFormProps> = ({ category, open, handleCancel, handl
           color="primary"
           onClick={() => {
             incomingItem ? handleSubmit(item, incomingItem) : handleSubmit(item);
-            setItem({ itemId: '', standupId: '', category: '', title: '', author: '', date: '', description: '' });
+            setItem({ itemId: '', standupId: standupId, category: category, title: '', author: '', date: '', description: '' });
           }}
         >
           Submit
