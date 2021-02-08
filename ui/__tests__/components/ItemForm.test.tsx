@@ -9,7 +9,7 @@ describe('ItemForm', () => {
     const category = 'Category';
 
     // when
-    const element = render(<ItemForm category={category} open={true} handleCancel={null} handleSubmit={null} />);
+    const element = render(<ItemForm standupId={'1'} category={category} open={true} handleCancel={null} handleSubmit={null} />);
 
     // then
     expect(element.getByText(`New Item for ${category}`)).toBeTruthy();
@@ -20,7 +20,7 @@ describe('ItemForm', () => {
     // given
 
     // when
-    const element = render(<ItemForm category={null} open={true} handleCancel={null} handleSubmit={null} />);
+    const element = render(<ItemForm standupId={'1'} category={null} open={true} handleCancel={null} handleSubmit={null} />);
 
     // then
     expect(element.getByLabelText('Author')).toBeTruthy();
@@ -42,7 +42,7 @@ describe('ItemForm', () => {
     };
 
     // when
-    const element = render(<ItemForm category={null} open={true} handleCancel={null} handleSubmit={null} incomingItem={incomingItem} />);
+    const element = render(<ItemForm standupId={'1'} category={null} open={true} handleCancel={null} handleSubmit={null} incomingItem={incomingItem} />);
 
     // then
     expect(element.getByDisplayValue(incomingItem.author)).toBeTruthy();
@@ -54,7 +54,7 @@ describe('ItemForm', () => {
   it('should use the handleCancel callback when the cancel button is clicked', () => {
     // given
     const mockHandleCancel = jest.fn();
-    const element = render(<ItemForm category={null} open={true} handleCancel={mockHandleCancel} handleSubmit={null} />);
+    const element = render(<ItemForm standupId={'1'} category={null} open={true} handleCancel={mockHandleCancel} handleSubmit={null} />);
 
     // when
     userEvent.click(element.getByRole('button', { name: 'Cancel' }));
@@ -66,7 +66,7 @@ describe('ItemForm', () => {
   it('should use the handleSubmit callback with the submitted item when the submit button is clicked', () => {
     // given
     const mockHandleSubmit = jest.fn();
-    const element = render(<ItemForm category={null} open={true} handleCancel={null} handleSubmit={mockHandleSubmit} />);
+    const element = render(<ItemForm standupId={'1'} category={'New Faces'} open={true} handleCancel={null} handleSubmit={mockHandleSubmit} />);
 
     // when
     userEvent.type(element.getByLabelText('Title'), 'test title');
@@ -77,8 +77,8 @@ describe('ItemForm', () => {
     expect(mockHandleSubmit).toHaveBeenCalledTimes(1);
     expect(mockHandleSubmit).toHaveBeenCalledWith({
       itemId: '',
-      standupId: '',
-      category: '',
+      standupId: '1',
+      category: 'New Faces',
       title: 'test title',
       author: 'some author',
       date: '',
@@ -98,7 +98,9 @@ describe('ItemForm', () => {
       date: '2020-10-10',
       description: 'Description 1',
     };
-    const element = render(<ItemForm category={null} open={true} handleCancel={null} handleSubmit={mockHandleSubmit} incomingItem={incomingItem} />);
+    const element = render(
+      <ItemForm standupId={'1'} category={null} open={true} handleCancel={null} handleSubmit={mockHandleSubmit} incomingItem={incomingItem} />
+    );
 
     // when
     userEvent.type(element.getByLabelText('Title'), ' edited');

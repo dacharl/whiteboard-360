@@ -17,7 +17,7 @@ describe('ListStandupItem', () => {
     };
 
     // when
-    const { getByText } = render(<ListStandupItem item={currentItem} title={title} setDisplayedItems={null} displayedItems={null} />);
+    const { getByText } = render(<ListStandupItem standupId={'1'} item={currentItem} title={title} setDisplayedItems={null} displayedItems={null} />);
 
     // then
     expect(getByText(currentItem.date, { exact: false })).toBeTruthy();
@@ -40,7 +40,7 @@ describe('ListStandupItem', () => {
     };
 
     // when
-    const { getByLabelText } = render(<ListStandupItem item={currentItem} title={title} setDisplayedItems={null} displayedItems={null} />);
+    const { getByLabelText } = render(<ListStandupItem standupId={'1'} item={currentItem} title={title} setDisplayedItems={null} displayedItems={null} />);
     userEvent.click(getByLabelText('edit item'));
 
     //then
@@ -78,7 +78,9 @@ describe('ListStandupItem', () => {
     const mockSetDisplayedItems = jest.fn();
 
     // when
-    const { getByLabelText } = render(<ListStandupItem item={currentItem} title={title} setDisplayedItems={mockSetDisplayedItems} displayedItems={items} />);
+    const { getByLabelText } = render(
+      <ListStandupItem standupId={'1'} item={currentItem} title={title} setDisplayedItems={mockSetDisplayedItems} displayedItems={items} />
+    );
     userEvent.click(getByLabelText('delete item'));
 
     //then
@@ -124,7 +126,7 @@ describe('ListStandupItem', () => {
 
     // when
     const { getByLabelText, getByRole } = render(
-      <ListStandupItem item={currentItem} title={title} setDisplayedItems={mockSetDisplayedItems} displayedItems={items} />
+      <ListStandupItem standupId={'1'} item={currentItem} title={title} setDisplayedItems={mockSetDisplayedItems} displayedItems={items} />
     );
     userEvent.click(getByLabelText('edit item'));
     userEvent.type(getByLabelText('Title'), ' edited');

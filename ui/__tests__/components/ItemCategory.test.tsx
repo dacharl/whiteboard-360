@@ -29,7 +29,7 @@ describe('ItemCategory', () => {
     ];
 
     // when
-    const { getByText, queryAllByRole } = render(<ItemCategory title={title} items={items} />);
+    const { getByText, queryAllByRole } = render(<ItemCategory title={title} standupId={'1'} items={items} setItems={null} />);
 
     // then
     expect(getByText(title)).toBeTruthy();
@@ -48,7 +48,7 @@ describe('ItemCategory', () => {
     const items = undefined;
 
     // when
-    const { getByText, queryAllByRole } = render(<ItemCategory title={title} items={items} />);
+    const { getByText, queryAllByRole } = render(<ItemCategory title={title} standupId={'1'} items={items} setItems={null} />);
 
     // then
     expect(getByText(title)).toBeTruthy();
@@ -61,7 +61,7 @@ describe('ItemCategory', () => {
     const items = [];
 
     // when
-    const element = render(<ItemCategory title={title} items={items} />);
+    const element = render(<ItemCategory title={title} standupId={'1'} items={items} setItems={null} />);
 
     // then
     expect(element.getByRole('button', { name: 'add item' })).toBeTruthy();
@@ -71,7 +71,7 @@ describe('ItemCategory', () => {
     // given
     const title = 'Category';
     const items = [];
-    const element = render(<ItemCategory title={title} items={items} />);
+    const element = render(<ItemCategory title={title} standupId={'1'} items={items} setItems={null} />);
     const addItemButton = element.getByRole('button', { name: 'add item' });
 
     // when
@@ -84,7 +84,8 @@ describe('ItemCategory', () => {
   it('should add a new item to be displayed when a new item is added', () => {
     const title = 'Category';
     const items = [];
-    const element = render(<ItemCategory title={title} items={items} />);
+    const mockSetItems = jest.fn();
+    const element = render(<ItemCategory title={title} standupId={'1'} items={items} setItems={mockSetItems} />);
     const addItemButton = element.getByRole('button', { name: 'add item' });
 
     // when
@@ -94,6 +95,6 @@ describe('ItemCategory', () => {
     userEvent.click(element.getByRole('button', { name: 'Submit' }));
 
     // then
-    expect(element.getByText('test title', { exact: false })).toBeTruthy();
+    expect(mockSetItems).toHaveBeenCalled();
   });
 });
