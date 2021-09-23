@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
-import ItemDto from '@models/ItemDto';
-import ItemForm from './ItemForm';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import EditIcon from '@material-ui/icons/Edit';
+import ItemDto from '@models/ItemDto';
 import { NextPage } from 'next';
+import React, { useState } from 'react';
+
+import ItemForm from './ItemForm';
 
 interface ListStandupItemProps {
   item: ItemDto;
@@ -48,14 +49,6 @@ export const ListStandupItem: NextPage<ListStandupItemProps> = ({ item, title, s
         primary={`${item.date} ${item.title}${item.author ? ' (' + item.author + ')' : ''}`}
         secondary={item.description ? item.description : null}
       />
-      <ListItemSecondaryAction>
-        <IconButton aria-label="edit item" onClick={handleClickOpenEdit}>
-          <EditIcon />
-        </IconButton>
-        <IconButton edge="end" aria-label="delete item" onClick={() => handleDelete(item)}>
-          <DeleteForeverIcon />
-        </IconButton>
-      </ListItemSecondaryAction>
       <ItemForm
         category={title}
         standupId={standupId}
@@ -64,6 +57,14 @@ export const ListStandupItem: NextPage<ListStandupItemProps> = ({ item, title, s
         handleSubmit={handleSubmitEdit}
         incomingItem={item}
       />
+      <ListItemSecondaryAction>
+        <IconButton aria-label="edit item" onClick={handleClickOpenEdit}>
+          <EditIcon />
+        </IconButton>
+        <IconButton edge="end" aria-label="delete item" onClick={() => handleDelete(item)}>
+          <DeleteForeverIcon />
+        </IconButton>
+      </ListItemSecondaryAction>
     </ListItem>
   );
 };

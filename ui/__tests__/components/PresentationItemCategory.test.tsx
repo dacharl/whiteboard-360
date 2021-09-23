@@ -1,5 +1,5 @@
-import { getDefaultNormalizer, render } from '@testing-library/react';
 import PresentationItemCategory from '@components/PresentationItemCategory';
+import { getDefaultNormalizer, render } from '@testing-library/react';
 import React from 'react';
 
 describe('PresentationItemCategory', () => {
@@ -38,5 +38,17 @@ describe('PresentationItemCategory', () => {
       expect(element.getByText(`- ${item.author}`, { exact: false })).toBeTruthy();
       expect(element.getByText(item.description, { exact: false, normalizer: getDefaultNormalizer({ collapseWhitespace: true }) })).toBeTruthy();
     });
+  });
+
+  it('should display the presentation category title, and no items when none are passed in', () => {
+    // given
+    const title = 'Category';
+    const items = null
+
+    // when
+    const element = render(<PresentationItemCategory title={title} items={items} />);
+
+    // then
+    expect(element.getByText(title)).toBeTruthy();
   });
 });
