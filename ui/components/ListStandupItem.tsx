@@ -1,14 +1,13 @@
+import React, { useState } from 'react';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
+import ItemDto from '@models/ItemDto';
+import ItemForm from './ItemForm';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-import EditIcon from '@material-ui/icons/Edit';
-import ItemDto from '@models/ItemDto';
 import { NextPage } from 'next';
-import React, { useState } from 'react';
-
-import ItemForm from './ItemForm';
 
 interface ListStandupItemProps {
   item: ItemDto;
