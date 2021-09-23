@@ -1,9 +1,9 @@
-import PresentationItem from '@components/PresentationItem';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import ItemDto from '@models/ItemDto';
 import { NextPage } from 'next';
+import PresentationItem from '@components/PresentationItem';
 
 interface PresentationItemCategoryProps {
   title: string;
@@ -14,12 +14,7 @@ const PresentationItemCategory: NextPage<PresentationItemCategoryProps> = ({ tit
   return (
     <Card style={{ height: '100vh' }} square>
       <CardHeader title={title} />
-      <CardContent>
-        {items ? items.map((item: ItemDto, index) => (
-          <PresentationItem key={`${item.title}-${index}`} item={item} />
-        ))
-          : <></>}
-      </CardContent>
+      <CardContent>{items ? items.map((item: ItemDto, index) => <PresentationItem key={`${item.title}-${index}`} item={item} />) : <></>}</CardContent>
     </Card>
   );
 };

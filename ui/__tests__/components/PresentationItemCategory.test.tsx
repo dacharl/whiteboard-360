@@ -1,5 +1,5 @@
-import PresentationItemCategory from '@components/PresentationItemCategory';
 import { getDefaultNormalizer, render } from '@testing-library/react';
+import PresentationItemCategory from '@components/PresentationItemCategory';
 import React from 'react';
 
 describe('PresentationItemCategory', () => {
@@ -43,7 +43,7 @@ describe('PresentationItemCategory', () => {
   it('should display the presentation category title, and no items when none are passed in', () => {
     // given
     const title = 'Category';
-    const items = null
+    const items = null;
 
     // when
     const element = render(<PresentationItemCategory title={title} items={items} />);
