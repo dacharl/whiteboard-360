@@ -1,11 +1,20 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 
+Globals:
+  Function:
+    Runtime: nodejs12.x
+    Timeout: 180
+    Handler: index.handler
+    Environment:
+      Variables:
+        TABLE_NAME: whiteBoard
+
 Resources:
-  myDB:
+  whiteBoardDB:
     Type: AWS::Serverless::SimpleTable
     Properties:
-      TableName: whiteboard-standup-items
+      TableName: whiteBoard
       PrimaryKey:
         Name: itemId
         Type: String
@@ -17,30 +26,54 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: CreateItemFunction/
-      Handler: index.handler
-      Runtime: nodejs12.x
       Events:
         apiForLambda:
           Type: Api
           Properties:
-            Path: /writedb
+            Path: /writeRecord
             Method: post
       Policies:
         DynamoDBWritePolicy:
-          TableName: !Ref myDB
+          TableName: !Ref whiteBoardDB
 
   RetrieveItemsFunction:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: RetrieveItemsFunction/
-      Handler: index.handler
-      Runtime: nodejs12.x
       Events:
         apiForLambda:
           Type: Api
           Properties:
-            Path: /readdb
-            Method: post
+            Path: /readRecords
+            Method: get
       Policies:
         DynamoDBReadPolicy:
-          TableName: !Ref myDB
+          TableName: !Ref whiteBoardDB
+
+  UpdateItemFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: UpdateItemFunction/
+      Events:
+        apiForLambda:
+          Type: Api
+          Properties:
+            Path: /updateRecord
+            Method: get
+      Policies:
+        DynamoDBWritePolicy:
+          TableName: !Ref whiteBoardDB
+  
+  DeleteItemFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: DeleteItemFunction/
+      Events:
+        apiForLambda:
+          Type: Api
+          Properties:
+            Path: /deleteRecord
+            Method: get
+      Policies:
+        DynamoDBWritePolicy:
+          TableName: !Ref whiteBoardDB
