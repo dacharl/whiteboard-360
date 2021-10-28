@@ -1,4 +1,4 @@
-const { CreateItemFunction } = require("./index");
+const { handler } = require("./index");
 var AWS = require("aws-sdk");
 
 jest.mock("aws-sdk", () => {
@@ -39,7 +39,7 @@ describe("CreateItemFunction() ", () => {
       promise: mockAwsSdkPromiseResponse,
     }));
 
-    const actual = await CreateItemFunction(payload);
+    const actual = await handler(payload);
     expect(mockDynamoDB.put).toBeCalled();
     expect(actual).toEqual(successResult);
   });
@@ -57,7 +57,7 @@ describe("CreateItemFunction() ", () => {
       promise: mockAwsSdkPromiseResponse,
     }));
 
-    const actual = await CreateItemFunction(payload);
+    const actual = await handler(payload);
     expect(mockDynamoDB.put).toBeCalled();
     expect(actual).toEqual(errorResult);
   });
