@@ -28,6 +28,6 @@ async function buildStandupItemRecord(standUpItem) {
   };
 }
 
-exports.CreateItemFunction = async (event) => {
+exports.handler = async (event) => {
   return await putItem(event.body);
 };
